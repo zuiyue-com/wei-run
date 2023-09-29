@@ -1,6 +1,6 @@
 [package]
-name = "wei-process"
-version = "0.1.1"
+name = "wei-run"
+version = "0.2.1"
 edition = "2021"
 description = "wei process"
 documentation = "https://github.com/zuiyue-com/wei-process"
@@ -8,11 +8,6 @@ homepage = "https://github.com/zuiyue-com/wei-process"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-winapi = { version = "0.3", features = ["winbase","tlhelp32","handleapi","wincon","winuser","psapi"] }
-
-[dependencies.procfs]
-version = "0.15"
-optional = true
-
-[target.'cfg(target_os = "linux")'.dependencies]
-procfs = "0.15"
+wei-env = "0.2.10"
+wei-log = "0.2.5"
+winapi = { version = "0.3", features = ["winbase"] }
