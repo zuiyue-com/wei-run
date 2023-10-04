@@ -2,9 +2,9 @@
 name = "wei-run"
 version = "0.2.3"
 edition = "2021"
-description = "wei process"
-documentation = "https://github.com/zuiyue-com/wei-process"
-homepage = "https://github.com/zuiyue-com/wei-process"
+description = "wei run"
+documentation = "https://github.com/zuiyue-com/wei-run"
+homepage = "https://github.com/zuiyue-com/wei-run"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
