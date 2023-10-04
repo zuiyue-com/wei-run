@@ -9,21 +9,9 @@ use std::os::windows::process::CommandExt;
 /// * `cmd` - Command name
 /// * `param` - Command parameters
 pub fn run(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::error::Error>> {
-    #[cfg(target_os = "windows")]
-    let path = "./".to_owned() + cmd + ".exe";
-    #[cfg(not(target_os = "windows"))]
     let path = "./".to_owned() + cmd;
 
     info!("path: {:?}", path);
-
-    if let Ok(data) = command(&path, param.clone()) {
-        return Ok(data);
-    };
-
-    #[cfg(target_os = "windows")]
-    let path = "./data/".to_owned() + cmd + ".exe";
-    #[cfg(not(target_os = "windows"))]
-    let path = "./data/".to_owned() + cmd;
 
     if let Ok(data) = command(&path, param.clone()) {
         return Ok(data);
@@ -61,21 +49,9 @@ pub fn command(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::err
 /// * `cmd` - Command name
 /// * `param` - Command parameters
 pub fn run_async(cmd: &str, param: Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
-    #[cfg(target_os = "windows")]
-    let path = "./".to_owned() + cmd + ".exe";
-    #[cfg(not(target_os = "windows"))]
     let path = "./".to_owned() + cmd;
 
     info!("path: {:?}", path);
-
-    if let Ok(()) = command_async(&path, param.clone()) {
-        return Ok(());
-    };
-
-    #[cfg(target_os = "windows")]
-    let path = "./data/".to_owned() + cmd + ".exe";
-    #[cfg(not(target_os = "windows"))]
-    let path = "./data/".to_owned() + cmd;
 
     if let Ok(()) = command_async(&path, param.clone()) {
         return Ok(());
