@@ -8,7 +8,7 @@ use std::os::windows::process::CommandExt;
 /// # Arguments
 /// * `cmd` - Command name
 /// * `param` - Command parameters
-pub fn run(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::error::Error>> {
+pub fn run(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error::Error>> {
     let path = "./".to_owned() + cmd;
 
     info!("path: {:?}", path);
@@ -26,7 +26,7 @@ pub fn run(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::error::
 /// # Arguments
 /// * `cmd` - Command name
 /// * `param` - Command parameters
-pub fn command(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::error::Error>> {
+pub fn command(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     let output = std::process::Command::new(cmd)
     .args(param)
@@ -48,7 +48,7 @@ pub fn command(cmd: &str, param: Vec<String>) -> Result<String, Box<dyn std::err
 /// # Arguments
 /// * `cmd` - Command name
 /// * `param` - Command parameters
-pub fn run_async(cmd: &str, param: Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn run_async(cmd: &str, param: Vec<&str>) -> Result<(), Box<dyn std::error::Error>> {
     let path = "./".to_owned() + cmd;
 
     info!("path: {:?}", path);
@@ -62,7 +62,7 @@ pub fn run_async(cmd: &str, param: Vec<String>) -> Result<(), Box<dyn std::error
     command_async(path.as_str(), param)
 }
 
-pub fn command_async(cmd: &str, param: Vec<String>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn command_async(cmd: &str, param: Vec<&str>) -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     std::process::Command::new(cmd)
     .args(param)
