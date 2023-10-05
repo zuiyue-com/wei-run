@@ -35,13 +35,14 @@ pub fn command(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error
 
     #[cfg(not(target_os = "windows"))]
     let output = std::process::Command::new(cmd)
-    .args(param)
-    .output()?;
+    .args(param).output()?;
 
-    match std::str::from_utf8(&output.stdout) {
-        Ok(v) => Ok(v.to_string()),
-        Err(e) => Err(Box::new(e))
-    }    
+    let data = format!("{}{}", 
+        std::str::from_utf8(&output.stdout)?, 
+        std::str::from_utf8(&output.stderr)?
+    );
+
+    Ok(data)
 }
 
 /// Run wei command, If the program does not exist/ Under the data/directory, search for the program's configuration file
