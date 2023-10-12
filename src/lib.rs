@@ -78,13 +78,13 @@ pub fn command_async(cmd: &str, param: Vec<&str>) -> Result<(), Box<dyn std::err
     Ok(())
 }
 
-use std::process::Command;
 pub fn kill(name: &str) -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     {
-        let mut cmd = Command::new("cmd");
-        cmd.arg("/C").arg(format!("taskkill /IM {}.exe /F", name));
-        cmd.output()?;
+        // let mut cmd = Command::new("cmd");
+        // cmd.arg("/C").arg(format!("taskkill /IM {}.exe /F", name));
+        // cmd.output()?;
+        psrun("wei-close.ps1", name)?;
     }
 
     #[cfg(target_os = "linux")]
@@ -93,5 +93,14 @@ pub fn kill(name: &str) -> Result<(), Box<dyn std::error::Error>> {
         cmd.arg("-c").arg(format!("pkill {}", name));
         cmd.output()?;
     }
+    Ok(())
+}
+
+pub fn psrun(name: &str, param: &str) -> Result<(), Box<dyn std::error::Error>> {
+    std::process::Command::new("powershell")
+    .arg("-ExecutionPolicy").arg("Bypass")
+    .arg("-File").arg(name).arg(param)
+    .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW).output()?;
+
     Ok(())
 }
