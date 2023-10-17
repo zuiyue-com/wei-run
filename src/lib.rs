@@ -11,7 +11,7 @@ use std::os::windows::process::CommandExt;
 pub fn run(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error::Error>> {
     let path = "./".to_owned() + cmd;
 
-    info!("path: {:?}", path);
+    info!("run: {:?}, param: {:?}", path, param);
 
     if let Ok(data) = command(&path, param.clone()) {
         return Ok(data);
