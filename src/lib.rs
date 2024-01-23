@@ -52,7 +52,7 @@ pub fn command(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error
 pub fn run_async(cmd: &str, param: Vec<&str>) -> Result<(), Box<dyn std::error::Error>> {
     let path = "./".to_owned() + cmd;
 
-    info!("path: {:?}", path);
+    info!("run_async: {:?}, param: {:?}", path, param);
 
     if let Ok(()) = command_async(&path, param.clone()) {
         return Ok(());
@@ -89,13 +89,14 @@ pub fn kill(name: &str) -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(target_os = "linux")]
     {
-        let mut cmd = Command::new("bash");
+        let mut cmd = std::process::Command::new("bash");
         cmd.arg("-c").arg(format!("pkill {}", name));
         cmd.output()?;
     }
     Ok(())
 }
 
+#[cfg(target_os = "windows")]
 pub fn psrun(name: &str, param: &str) -> Result<(), Box<dyn std::error::Error>> {
     std::process::Command::new("powershell")
     .arg("-ExecutionPolicy").arg("Bypass")
