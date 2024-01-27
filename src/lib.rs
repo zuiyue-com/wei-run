@@ -45,6 +45,24 @@ pub fn command(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error
     Ok(data)
 }
 
+/// Run command_output
+/// # Arguments
+/// * `cmd` - Command name
+/// * `param` - Command parameters
+pub fn command_output(cmd: &str, param: Vec<&str>) -> Result<std::process::Output, Box<dyn std::error::Error>> {
+    #[cfg(target_os = "windows")]
+    let output = std::process::Command::new(cmd)
+    .args(param)
+    .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
+    .output()?;
+
+    #[cfg(not(target_os = "windows"))]
+    let output = std::process::Command::new(cmd)
+    .args(param).output()?;
+
+    Ok(output)
+}
+
 /// Run wei command, If the program does not exist/ Under the data/directory, search for the program's configuration file
 /// # Arguments
 /// * `cmd` - Command name
