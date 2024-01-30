@@ -27,6 +27,7 @@ pub fn run(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error::Er
 /// * `cmd` - Command name
 /// * `param` - Command parameters
 pub fn command(cmd: &str, param: Vec<&str>) -> Result<String, Box<dyn std::error::Error>> {
+    info!("wei-run command: {:?}, param: {:?}", cmd, param);
     #[cfg(target_os = "windows")]
     let output = std::process::Command::new(cmd)
     .args(param)
