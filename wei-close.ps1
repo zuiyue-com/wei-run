@@ -3,4 +3,4 @@ param (
     [string]$arg1
 )
 
-taskkill /IM "$arg1.exe" /F
+taskkill /IM "$arg1" /F
