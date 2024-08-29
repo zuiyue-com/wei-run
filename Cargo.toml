@@ -4,7 +4,7 @@ version = "0.3.2"
 edition = "2021"
 description = "wei run"
 documentation = "https://github.com/zuiyue-com/wei-run"
-homepage = "https://github.com/zuiyue-com/wei-run"
+repository = "https://github.com/zuiyue-com/wei-run"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
